@@ -1,13 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using WpfApp2;
 
 namespace WpfApp1
 {
@@ -17,12 +21,72 @@ namespace WpfApp1
         public AsyncRelayCommand WinLoad { get; }
         private readonly Reposit r;
         public ObservableCollection<Product> Products { get; }
-        public EditViewModel(Reposit rep) {
+        public ObservableCollection<Category> Categories { get; }
+        public RelayCommand<AddingNewItemEventArgs> AddNewRowCommand { get; }
+        public LoginViewModel logvm { get; }
+
+        public EditViewModel(Reposit rep, LoginViewModel loginViewModel) {
+            logvm=loginViewModel;
+            loginViewModel.PropertyChanged += LoginViewModelOnPropertyChanged;
             Products = new ObservableCollection<Product>();
             Products.CollectionChanged += Products_CollectionChanged;
             WinLoad = new AsyncRelayCommand(OnWinLoad);
-            
+            Categories = new ObservableCollection<Category>();
+            Categories.CollectionChanged += Categories_CollectionChanged;
             r = rep;
+            AddNewRowCommand = new RelayCommand<AddingNewItemEventArgs>(AddNewRow);
+        }
+
+        private void LoginViewModelOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(logvm.IsLoggedIn))
+                return;
+
+            if (logvm.IsLoggedIn)
+            {
+                _ = OnWinLoad();
+            }
+            else
+            {
+                Products.Clear();
+            }
+        }
+
+        private void Categories_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                foreach (Category i in e.NewItems)
+                {
+                    if (i.Id == 0) {
+                        _ = r.AddCategory(i);
+                    }
+
+                    i.PropertyChanged += С_PropertyChanged;
+                    
+
+                }
+            }
+            if (e.OldItems != null)
+            {
+                foreach (Category i in e.OldItems)
+                {
+                    i.PropertyChanged -= С_PropertyChanged;
+                    for (var j=Products.Count-1; j>=0;j--) 
+                    {
+                        var item = Products[j];
+                        if (item.Category.Id == i.Id) {
+                        Products.Remove(item);
+                        }
+                    }
+                    _ = r.DeleteCategory(i.Id);
+                }
+            }
+        }
+
+        private void С_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            _ = r.SaveCategory((Category)sender!); 
         }
 
         private void Products_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -46,21 +110,32 @@ namespace WpfApp1
                 }
             }
         }
+        private void AddNewRow(AddingNewItemEventArgs? e) {
+            if (e == null) return;
+            e.NewItem = new Product()
+            {
+                Name = string.Empty,
+                Category = Categories[1]
+            };
 
-       
+        }
+
+
         private void I_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             _=r.SaveProduct((Product)sender!);
         }
 
         private async Task OnWinLoad() {
-            foreach (var item in await r.GetProducts()) {
+            foreach (var item in await r.GetProducts()) 
+            {
                 Products.Add(item);
             }
+            foreach (var item in await r.GetCategories())
+            {
+                Categories.Add(item);
+            }
         }
-        
-
-
 
     }
 }

@@ -11,23 +11,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1;
 
-namespace WpfApp1
+namespace AdminApp
 {
     /// <summary>
-    /// Логика взаимодействия для RegWin.xaml
+    /// Логика взаимодействия для EditControl.xaml
     /// </summary>
-    public partial class RegWin : Window
+    public partial class EditControl : UserControl
     {
-        
-        public RegWin()
+        public EditControl()
         {
             InitializeComponent();
-            DataContext = Ioc.Default.GetService<AccViewModel>();
-            
+            DataContext = Ioc.Default.GetRequiredService<EditViewModel>();
         }
-
-       
     }
 }

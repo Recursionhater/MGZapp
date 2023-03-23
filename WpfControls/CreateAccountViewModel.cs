@@ -7,7 +7,7 @@ using Shared;
 
 namespace WpfApp2;
 
-internal partial class CreateAccountViewModel : ObservableObject
+public partial class CreateAccountViewModel : ObservableObject
 {
     [ObservableProperty, NotifyCanExecuteChangedFor(nameof(RegisterCommand))] private string _username = "";
     [ObservableProperty, NotifyCanExecuteChangedFor(nameof(RegisterCommand))] private string _password = "";

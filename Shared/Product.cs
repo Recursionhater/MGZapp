@@ -1,27 +1,45 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System.Runtime.CompilerServices;
+using Shared;
 
 namespace WpfApp1
 {
-    
-    public partial class Product : ObservableObject
+
+    public class Product:ObservableObject
     {
-        [ObservableProperty]
         private int _id;
-        [ObservableProperty]
-        private string _name;
-        [ObservableProperty]
+        private string _name=null!;
         private decimal _price;
-        [ObservableProperty]
         private string? _description;
-        //public int Id { get;  set; }
-        //public string Name { get;  set; }
-        //public decimal Price { get;  set; }
-        //public string Description { get;  set; }
-        public Product() { 
-        _name= string.Empty;
-            _description = string.Empty;
+        private Category _category = null!;
+        public int Id 
+        { 
+            get=>_id;
+            set=>SetProperty(ref _id, value);
         }
-        
+        public string Name 
+        {
+            get => _name;
+            set => SetProperty(ref _name, value);
+        } 
+
+        public decimal Price 
+        {
+            get => _price;
+            set => SetProperty(ref _price, value);
+        }
+
+        public string? Description 
+        {
+            get => _description;
+            set => SetProperty(ref _description, value);
+        }
+
+
+        public virtual Category Category 
+        {
+            get => _category;
+            set => SetProperty(ref _category, value);
+        } 
+
     }
 }

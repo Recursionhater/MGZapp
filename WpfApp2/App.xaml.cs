@@ -32,13 +32,13 @@ namespace WpfApp2
         private static IServiceProvider ConfigureServices()
         {
             var services = new ServiceCollection();
-            //services.AddDbContext<AppDbContext>(options => {
-            //    options.UseSqlServer("Trust Server Certificate=true; Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=MGZ;Data Source=DESKTOP-32P70LE\\SQLEXPRESS");
-            //});
-            services.AddDbContextFactory<AppDbContext>(options => { options.UseSqlServer("Trust Server Certificate=true; Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=MGZ1;Data Source=DESKTOP-32P70LE\\SQLEXPRESS"); });
+            services.AddDbContextFactory<AppDbContext>();
             services.AddTransient<MainWindowViewModel>();
             services.AddTransient<CreateAccountViewModel>();
             services.AddTransient<LoginViewModel>();
+            services.AddTransient<ConnectViewModel>();
+            services.AddSingleton<IConnectionStringProvider,ConnectionStringProvider>();
+            services.AddTransient<ShoppingCartViewModel>();
 
             return services.BuildServiceProvider();
         }

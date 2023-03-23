@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace WpfApp2
         {
             InitializeComponent();
             DataContext = Ioc.Default.GetRequiredService<MainWindowViewModel>();
+            
         }
     }
 }

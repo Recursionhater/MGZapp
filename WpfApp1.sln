@@ -5,9 +5,11 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminApp", "WpfApp1\AdminApp.csproj", "{294E8723-57BF-4400-87A5-FF997F457AAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientApp", "WpfApp2\ClientApp.csproj", "{D4AC6055-2140-4BA9-88DC-11395D6DCE12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientApp", "WpfApp2\ClientApp.csproj", "{D4AC6055-2140-4BA9-88DC-11395D6DCE12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{3434A21B-BC4A-4854-8461-C6D80A77376C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{3434A21B-BC4A-4854-8461-C6D80A77376C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfControls", "WpfControls\WpfControls.csproj", "{6F46434D-A210-4BE2-A563-335F89C748B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{3434A21B-BC4A-4854-8461-C6D80A77376C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3434A21B-BC4A-4854-8461-C6D80A77376C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3434A21B-BC4A-4854-8461-C6D80A77376C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F46434D-A210-4BE2-A563-335F89C748B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F46434D-A210-4BE2-A563-335F89C748B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F46434D-A210-4BE2-A563-335F89C748B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F46434D-A210-4BE2-A563-335F89C748B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

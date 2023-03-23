@@ -12,18 +12,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp2;
 
-namespace WpfApp1
+namespace AdminApp
 {
     /// <summary>
-    /// Логика взаимодействия для EditWin.xaml
+    /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class EditWin : Window
+    public partial class MainWindow : Window
     {
-        public EditWin()
+        public MainWindow()
         {
             InitializeComponent();
-            DataContext = Ioc.Default.GetService<EditViewModel>();
+            DataContext = Ioc.Default.GetRequiredService<MainWindowViewModel>();
         }
     }
 }

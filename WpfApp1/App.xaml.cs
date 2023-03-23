@@ -1,5 +1,7 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
+﻿using AdminApp;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using WpfApp2;
 
 namespace WpfApp1
 {
@@ -52,9 +55,14 @@ namespace WpfApp1
         private static IServiceProvider ConfigureServices()
         {
             var services = new ServiceCollection();
-            services.AddSingleton( new Reposit("Trust Server Certificate=true; Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=MGZ;Data Source=DESKTOP-32P70LE\\SQLEXPRESS"));
-            services.AddTransient<AccViewModel>();
+            services.AddDbContextFactory<AppDbContext>();
+            services.AddSingleton<Reposit>();
+            services.AddTransient<MainWindowViewModel>();
             services.AddTransient<EditViewModel>();
+            services.AddTransient<CreateAccountViewModel>();
+            services.AddTransient<LoginViewModel>();
+            services.AddTransient<ConnectViewModel>();
+            services.AddSingleton<IConnectionStringProvider,ConnectionStringProvider>();
 
             return services.BuildServiceProvider();
         }

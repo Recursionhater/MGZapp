@@ -8,7 +8,7 @@ using Shared;
 
 namespace WpfApp2;
 
-internal partial class LoginViewModel : ObservableObject
+public partial class LoginViewModel : ObservableObject
 {
     [ObservableProperty, NotifyCanExecuteChangedFor(nameof(LoginCommand))] private string _username = "";
     [ObservableProperty, NotifyCanExecuteChangedFor(nameof(LoginCommand))] private string _password = "";

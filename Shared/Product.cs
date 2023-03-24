@@ -4,13 +4,15 @@ using Shared;
 namespace WpfApp1
 {
 
-    public class Product:ObservableObject
+    public partial class Product:ObservableObject
     {
         private int _id;
         private string _name=null!;
         private decimal _price;
         private string? _description;
         private Category _category = null!;
+        [ObservableProperty]
+        private byte[]? _image;
         public int Id 
         { 
             get=>_id;

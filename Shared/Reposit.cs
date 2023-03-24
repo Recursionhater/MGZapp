@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Shared;
+using System.Data;
 
 namespace WpfApp1
 {
@@ -41,11 +42,14 @@ namespace WpfApp1
         {
             await Execute(async command =>
             {
-                command.CommandText = "INSERT INTO Products (Name,Price,Description,CategoryId) output INSERTED.ID values (@Name,@Price,@Description,@CategoryId)";
+                command.CommandText = "INSERT INTO Products (Name,Price,Description,CategoryId,Image) output INSERTED.ID values (@Name,@Price,@Description,@CategoryId,@Image)";
                 command.Parameters.AddWithValue("Name", p.Name);
                 command.Parameters.AddWithValue("Price", p.Price);
                 command.Parameters.AddWithValue("Description", p.Description ?? (object)DBNull.Value);
                 command.Parameters.AddWithValue("CategoryId", p.Category.Id);
+                var param = command.Parameters.AddWithValue("Image", p.Image ?? (object)DBNull.Value);
+                param.SqlDbType = SqlDbType.VarBinary;
+                param.Size = -1;
                 p.Id = (int)(await command.ExecuteScalarAsync())!;
                 return 0;
             });
@@ -54,12 +58,15 @@ namespace WpfApp1
         {
             await Execute(async command =>
             {
-                command.CommandText = "Update Products set Name=@Name,Price=@Price,Description = @Description,CategoryId = @CategoryId Where Id=@Id";
+                command.CommandText = "Update Products set Name=@Name,Price=@Price,Description = @Description,CategoryId = @CategoryId , Image = @Image Where Id=@Id";
                 command.Parameters.AddWithValue("Name", p.Name);
                 command.Parameters.AddWithValue("Price", p.Price);
                 command.Parameters.AddWithValue("Description", p.Description ?? (object)DBNull.Value);
                 command.Parameters.AddWithValue("Id", p.Id);
                 command.Parameters.AddWithValue("CategoryId", p.Category.Id);
+                var param = command.Parameters.AddWithValue("Image", p.Image ?? (object)DBNull.Value);
+                param.SqlDbType = SqlDbType.VarBinary;
+                param.Size = -1;
                 await command.ExecuteNonQueryAsync();
                 return 0;
             });
@@ -71,7 +78,7 @@ namespace WpfApp1
                 var categories = await GetCategories();
                 var categoriesById = categories.ToDictionary(c=>c.Id);
                 var products = new List<Product>();
-                command.CommandText = "SELECT Id,Name,Price,Description,CategoryId From Products ";
+                command.CommandText = "SELECT Id,Name,Price,Description,CategoryId,Image From Products ";
                 using var reader = await command.ExecuteReaderAsync();
                 while (reader.Read())
                 {
@@ -81,7 +88,8 @@ namespace WpfApp1
                         Name = reader.GetString(reader.GetOrdinal("Name")),
                         Price = reader.GetDecimal(reader.GetOrdinal("Price")),
                         Description = reader.IsDBNull(reader.GetOrdinal("Description")) ? null : reader.GetString(reader.GetOrdinal("Description")),
-                        Category = categoriesById[reader.GetInt32(reader.GetOrdinal("CategoryId"))]
+                        Category = categoriesById[reader.GetInt32(reader.GetOrdinal("CategoryId"))],
+                        Image = (byte[])reader.GetValue(reader.GetOrdinal("Image"))
                     }) ;
                 }
                 return products;

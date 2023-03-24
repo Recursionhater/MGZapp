@@ -1,11 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Win32;
 using Shared;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,8 +25,8 @@ namespace WpfApp1
         public ObservableCollection<Product> Products { get; }
         public ObservableCollection<Category> Categories { get; }
         public RelayCommand<AddingNewItemEventArgs> AddNewRowCommand { get; }
+        public RelayCommand<object> SelectImageCommand { get; }
         public LoginViewModel logvm { get; }
-
         public EditViewModel(Reposit rep, LoginViewModel loginViewModel) {
             logvm=loginViewModel;
             logvm.PropertyChanged += LoginViewModelOnPropertyChanged;
@@ -35,6 +37,19 @@ namespace WpfApp1
             Categories.CollectionChanged += Categories_CollectionChanged;
             r = rep;
             AddNewRowCommand = new RelayCommand<AddingNewItemEventArgs>(AddNewRow);
+            SelectImageCommand = new RelayCommand<object>(SelectImage);
+        }
+
+        private void SelectImage(object? value)
+        {
+            if (value is not Product product)
+                return;
+
+            var openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                product.Image = File.ReadAllBytes(openFileDialog.FileName);
+            }
         }
 
         private void LoginViewModelOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -112,7 +127,7 @@ namespace WpfApp1
             e.NewItem = new Product()
             {
                 Name = string.Empty,
-                Category = Categories[1]
+                Category = Categories[0],
             };
 
         }

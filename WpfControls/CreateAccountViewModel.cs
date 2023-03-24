@@ -10,7 +10,7 @@ namespace WpfApp2;
 public partial class CreateAccountViewModel : ObservableObject
 {
     [ObservableProperty, NotifyCanExecuteChangedFor(nameof(RegisterCommand))] private string _username = "";
-    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(RegisterCommand))] private string _password = "";
+    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(RegisterCommand))] private string _password = ""; //TODO Зашифровать 
     [ObservableProperty, NotifyCanExecuteChangedFor(nameof(RegisterCommand))] private string _rePassword = "";
     [ObservableProperty, NotifyCanExecuteChangedFor(nameof(RegisterCommand))] private string _error = "";
     private readonly IDbContextFactory<AppDbContext> factory;

@@ -67,7 +67,7 @@ public partial class ConnectViewModel : ObservableObject
         {
             TrustServerCertificate = true,
             DataSource = SelectedDataSource,
-            InitialCatalog = "MGZ"
+            //InitialCatalog = "MGZ"
         };
 
         if (AuthenticationMode == AuthenticationMode.Windows)
@@ -82,6 +82,7 @@ public partial class ConnectViewModel : ObservableObject
 
         await using var connection = new SqlConnection(csb.ConnectionString);
         await connection.OpenAsync();
+        csb.InitialCatalog = "MGZ";
         _csp.ConnectionString = csb.ConnectionString;
         using var db = await _dbfactory.CreateDbContextAsync();
         db.Database.EnsureCreated();

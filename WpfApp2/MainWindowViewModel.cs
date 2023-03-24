@@ -124,6 +124,7 @@ internal partial class MainWindowViewModel : ObservableObject
         }
         else {
             Products.Clear();
+            Categories.Clear();
         }
     }
     private async Task LoadData()

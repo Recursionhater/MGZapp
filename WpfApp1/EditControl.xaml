@@ -25,7 +25,7 @@
             </DataGrid.Columns>
             
         </DataGrid>
-        <DataGrid Grid.Row="1" ItemsSource="{Binding Products}"  AutoGenerateColumns="False" AlternatingRowBackground="#2B4000" Background="#0C3A00"  >
+        <DataGrid EnableRowVirtualization="True" Grid.Row="1" ItemsSource="{Binding Products}"  AutoGenerateColumns="False" AlternatingRowBackground="#2B4000" Background="#0C3A00"  >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="AddingNewItem">
                     <i:InvokeCommandAction Command="{Binding AddNewRowCommand}" PassEventArgsToCommand="True" />
@@ -58,6 +58,18 @@
                 <!--<DataGridComboBoxColumn  Header="Category" ItemsSource="{Binding Categories}"
                 DisplayMemberPath="Name"
                 SelectedValueBinding="{Binding Category, UpdateSourceTrigger=PropertyChanged}" />-->
+                <DataGridTemplateColumn Header="Image" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Command="{Binding DataContext.SelectImageCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}"
+                                CommandParameter="{Binding}"
+                                Style="{StaticResource MaterialDesignToolButton}"
+                                Padding="0 0 0 0">
+                                <Image Source="{Binding Image}"/>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn  Binding="{Binding Description}"
                                     Header="Description" Width="*"/>
                 

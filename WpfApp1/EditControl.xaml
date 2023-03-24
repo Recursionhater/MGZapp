@@ -9,11 +9,7 @@
              d:DataContext="{d:DesignInstance local:EditViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding WinLoad}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -29,7 +25,7 @@
             </DataGrid.Columns>
             
         </DataGrid>
-        <DataGrid EnableRowVirtualization="True" Grid.Row="1" ItemsSource="{Binding Products}"  AutoGenerateColumns="False" AlternatingRowBackground="#2B4000" Background="#0C3A00"  >
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Products}"  AutoGenerateColumns="False" AlternatingRowBackground="#2B4000" Background="#0C3A00"  >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="AddingNewItem">
                     <i:InvokeCommandAction Command="{Binding AddNewRowCommand}" PassEventArgsToCommand="True" />
@@ -44,7 +40,11 @@
 
                 <DataGridTextColumn  Binding="{Binding Price}"
                                     Header="Price" Width="SizeToHeader"/>
-                <DataGridTemplateColumn Header="Category">
+                <md:DataGridComboBoxColumn Header="Category"
+                                       SelectedItemBinding="{Binding Category}"
+                                       ItemsSourceBinding="{Binding DataContext.Categories, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}"
+                                       DisplayMemberPath="Name"/>
+                <!--<DataGridTemplateColumn Header="Category">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <ComboBox ItemsSource="{Binding DataContext.Categories,RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
@@ -54,7 +54,7 @@
 
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                </DataGridTemplateColumn>-->
                 <!--<DataGridComboBoxColumn  Header="Category" ItemsSource="{Binding Categories}"
                 DisplayMemberPath="Name"
                 SelectedValueBinding="{Binding Category, UpdateSourceTrigger=PropertyChanged}" />-->

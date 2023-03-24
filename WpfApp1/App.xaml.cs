@@ -26,7 +26,6 @@ namespace WpfApp1
             Application.Current.Dispatcher.UnhandledExceptionFilter += OnFilterDispatcherException;
             TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
             Ioc.Default.ConfigureServices(ConfigureServices());
-            this.InitializeComponent();
         }
 
         private void OnUnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
@@ -60,7 +59,7 @@ namespace WpfApp1
             services.AddTransient<MainWindowViewModel>();
             services.AddTransient<EditViewModel>();
             services.AddTransient<CreateAccountViewModel>();
-            services.AddTransient<LoginViewModel>();
+            services.AddSingleton<LoginViewModel>();
             services.AddTransient<ConnectViewModel>();
             services.AddSingleton<IConnectionStringProvider,ConnectionStringProvider>();
 

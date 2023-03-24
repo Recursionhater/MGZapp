@@ -27,7 +27,7 @@ namespace WpfApp1
 
         public EditViewModel(Reposit rep, LoginViewModel loginViewModel) {
             logvm=loginViewModel;
-            loginViewModel.PropertyChanged += LoginViewModelOnPropertyChanged;
+            logvm.PropertyChanged += LoginViewModelOnPropertyChanged;
             Products = new ObservableCollection<Product>();
             Products.CollectionChanged += Products_CollectionChanged;
             WinLoad = new AsyncRelayCommand(OnWinLoad);
@@ -44,12 +44,9 @@ namespace WpfApp1
 
             if (logvm.IsLoggedIn)
             {
-                _ = OnWinLoad();
+               _= OnWinLoad();
             }
-            else
-            {
-                Products.Clear();
-            }
+
         }
 
         private void Categories_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

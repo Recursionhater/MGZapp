@@ -89,7 +89,7 @@ namespace WpfApp1
                         Price = reader.GetDecimal(reader.GetOrdinal("Price")),
                         Description = reader.IsDBNull(reader.GetOrdinal("Description")) ? null : reader.GetString(reader.GetOrdinal("Description")),
                         Category = categoriesById[reader.GetInt32(reader.GetOrdinal("CategoryId"))],
-                        Image = (byte[])reader.GetValue(reader.GetOrdinal("Image"))
+                        Image = reader.IsDBNull(reader.GetOrdinal("Image")) ? null : (byte[])reader.GetValue(reader.GetOrdinal("Image"))
                     }) ;
                 }
                 return products;
@@ -124,6 +124,7 @@ namespace WpfApp1
                 return categories;
             });
         }
+        //Упрощение 
         private async Task<T> Execute<T>(Func<SqlCommand, Task<T>> action)
         {
             using SqlConnection connection = new(_cstp.ConnectionString);

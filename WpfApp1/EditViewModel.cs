@@ -127,7 +127,7 @@ namespace WpfApp1
             e.NewItem = new Product()
             {
                 Name = string.Empty,
-                Category = Categories[0],
+                Category = Categories[1],
             };
 
         }

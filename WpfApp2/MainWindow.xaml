@@ -35,13 +35,15 @@
                 <wc:CreateAccountControl DataContext="{Binding CreateAccountViewModel}" />
             </md:Transitioner>
         </md:DialogHost.DialogContent>
-        <md:DrawerHost>
-            <md:DrawerHost.LeftDrawerContent>
+            <md:DrawerHost
+            IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+                <md:DrawerHost.LeftDrawerContent>
                 <DockPanel MinWidth="220">
                     <ToggleButton Margin="16"
                                 HorizontalAlignment="Right"
                                 DockPanel.Dock="Top"
-                                Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
+                                Style="{StaticResource MaterialDesignHamburgerToggleButton}"
+                                  x:Name="MenuToggleButton"/>
                     <TextBox x:Name="DemoItemsSearchBox"
                             Text="{Binding CategoryFilter, UpdateSourceTrigger=PropertyChanged}"
                             Width="200"
@@ -144,7 +146,7 @@
                                             <RowDefinition Height="*"/>
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
-                                        <Image Source="{Binding Image}" Stretch="Uniform" />
+                                            <Image Source="{Binding Image, TargetNullValue={x:Null}}" Stretch="Uniform" />
                                         <TextBlock Grid.Row="1" Text="{Binding Name}" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
                                         <TextBlock Grid.Row="2" Text="{Binding Description}" Style="{DynamicResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"/>
                                         <Grid Grid.Row="3">

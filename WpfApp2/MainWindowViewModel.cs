@@ -129,6 +129,7 @@ internal partial class MainWindowViewModel : ObservableObject
     }
     private async Task LoadData()
     {
+        Categories.Clear();
         Products.Clear();
         using var dbContext = _factory.CreateDbContext();
         var products = await dbContext.Products.Include(p=>p.Category).AsNoTracking().ToListAsync();

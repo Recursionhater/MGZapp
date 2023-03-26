@@ -3,7 +3,9 @@ using Shared;
 
 namespace WpfApp1
 {
-
+    // SetProperty(ref что-то, value) - Для изменения ссылки на field
+    // ObservableObject это клас добавленный в community toolkit mvvm для упрощения процедуры
+    // отслеживаний о изменениях свойств ( PropertyChanging?.Invoke(this, e);
     public partial class Product:ObservableObject
     {
         private int _id;

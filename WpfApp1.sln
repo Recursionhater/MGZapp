@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientApp", "WpfApp2\Client
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{3434A21B-BC4A-4854-8461-C6D80A77376C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfControls", "WpfControls\WpfControls.csproj", "{6F46434D-A210-4BE2-A563-335F89C748B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfControls", "WpfControls\WpfControls.csproj", "{6F46434D-A210-4BE2-A563-335F89C748B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{A3CB43DF-ED88-410F-B2C8-0D29666FDD40}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

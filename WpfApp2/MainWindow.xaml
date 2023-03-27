@@ -35,7 +35,7 @@
                 <wc:CreateAccountControl DataContext="{Binding CreateAccountViewModel}" />
             </md:Transitioner>
         </md:DialogHost.DialogContent>
-            <md:DrawerHost
+        <md:DrawerHost
             IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
                 <md:DrawerHost.LeftDrawerContent>
                 <DockPanel MinWidth="220">
